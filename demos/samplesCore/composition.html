@@ -1,6 +1,9 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
 This sample illustrates template composition, including passing parameters to a {{tmpl}} tag.
 -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
 <style type="text/css">
 	.peopleTable td { border:2px solid #555; text-align:center; }
 	.person{ background-color:#AFA; }
@@ -9,10 +12,12 @@ This sample illustrates template composition, including passing parameters to a 
 	.separator { background-color:#C77; height:6px;}
 	.peopleTable { border-collapse:collapse; border:2px solid #555; }
 </style>
+</head>
+<body>
 
-<script src="http://code.jquery.com/jquery.js"></script>
+<script src="http://code.jquery.com/jquery.js" type="text/javascript"></script>
 <script src="../../jquery.tmpl.js" type="text/javascript"></script>
-<script>
+<script type="text/javascript">
 var people = [
 	{
 		firstName: "John",
@@ -43,7 +48,7 @@ var people = [
 function getName() {
 	return this.data.firstName + " " + this.data.lastName;
 }
-		 
+
 function alternate( item, array ) {
 	return ($.inArray( item, array ) % 2) ? "personAlt" : "person";
 }
@@ -59,7 +64,7 @@ function getTemplate( key ) {
 $(function(){
 	// Create named template, to be used in composition below
 	$.template( "citySeparator", '<tr class="citySeparator"><td colspan="2"></td></tr>' );
-	
+
 	$( "#tmplPeople" )
 		.tmpl( people )
 		.appendTo( ".peopleTable" );
@@ -89,3 +94,5 @@ $(function(){
 
 <table class="peopleTable"><tbody></tbody></table>
 
+</body>
+</html>

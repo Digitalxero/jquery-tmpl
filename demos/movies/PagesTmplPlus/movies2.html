@@ -3,11 +3,9 @@
 This sample illustrates using templates for a more complete and
 realistic scenario.
 
-It uses the NetFlix OData JSONP services as a source of data.
-
-This version of the movies sample demo uses the
-	$( templateSelector ).tmpl( data ).appendTo( targetSelector )
-pattern, and also uses the tmplCmd plugin and the rendered event.
+It is similar to the movies/PagesCore/movies.html sample,
+except that it uses jquery.tmplPlus.js in order to take advantage
+of the .tmplCmd() features and the rendered event.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -38,7 +36,7 @@ pattern, and also uses the tmplCmd plugin and the rendered event.
 	</table>
 	<br/>
 </div>
-<script src="http://code.jquery.com/jquery.js"></script>
+<script src="http://code.jquery.com/jquery.js" type="text/javascript"></script>
 <script src="../../../jquery.tmpl.js" type="text/javascript"></script>
 <script src="../../../jquery.tmplPlus.js" type="text/javascript"></script>
 <script src="../components/jquery.pager.js" type="text/javascript"></script>
@@ -102,7 +100,7 @@ pattern, and also uses the tmplCmd plugin and the rendered event.
 <script type="text/javascript">
 	var genre="Cartoons", pageIndex = 1, pageSize = 3, pageCount = 0,
 		cart = { bookings: {}, count: 0, sortBy:0 }, bookingTmplItems = [], selectedBooking;
-		
+
 	getMovies( pageIndex );
 
 	$( "#genres li" ).click( selectGenre );
@@ -143,7 +141,7 @@ pattern, and also uses the tmplCmd plugin and the rendered event.
 			case "2":
 				compare = compareDate;
 				break;
-		} 
+		}
 
 		for ( var item in cart.bookings ) {
 			data.push( cart.bookings[item] );
@@ -151,7 +149,7 @@ pattern, and also uses the tmplCmd plugin and the rendered event.
 		data = data.sort( compare );
 
 		bookingTmplItems = $.tmplCmd( "replace", data, bookingTmplItems );
-	
+
 		function compareName( a, b ) {
 			return a == b ? 0 : (((a.movie.Name > b.movie.Name) !== reverse) ? 1 : -1);
 		}
@@ -159,7 +157,7 @@ pattern, and also uses the tmplCmd plugin and the rendered event.
 			return a.date - b.date;
 		}
 	}
-		
+
 	function getMovies( index ) {
 		var query = "http://odata.netflix.com/Catalog/Genres('" + genre + "')/Titles" +
 			"?$format=json" +
@@ -179,7 +177,7 @@ pattern, and also uses the tmplCmd plugin and the rendered event.
 				});
 			});
 	}
-	
+
 	function showMovies( data ) {
 		pageCount = Math.ceil( data.d.__count/pageSize ),
 			movies = data.d.results;
@@ -219,7 +217,7 @@ pattern, and also uses the tmplCmd plugin and the rendered event.
 				return;
 			}
 			// Collapse previously selected booking, and switch to non-edit view
-			var oldSelected = selectedBooking; 
+			var oldSelected = selectedBooking;
 			$( "div", bookingItem( oldSelected ).nodes ).animate( { height: 0 }, 500, function() {
 				switchView( oldSelected );
 			});
@@ -236,8 +234,8 @@ pattern, and also uses the tmplCmd plugin and the rendered event.
 			$( "#bookingEditTmpl" )
 
 				// Render the booking for the chosen movie using the bookingEditTemplate
-				.tmpl( booking, { 
-					animate: true, 
+				.tmpl( booking, {
+					animate: true,
 					rendered: onBookingEditRendered,
 					addedTmplItems: bookingTmplItems
 				})
@@ -282,7 +280,7 @@ pattern, and also uses the tmplCmd plugin and the rendered event.
 		});
 
 		$( ".close", nodes ).click( removeBooking );
-		
+
 		$( ".date", nodes ).change( function() {
 			data.date = $(this).datepicker( "getDate" );
 			updateBooking( item );
@@ -319,7 +317,7 @@ pattern, and also uses the tmplCmd plugin and the rendered event.
 		cart.count--;
 		cartTmplItem.update();
 		$.tmplCmd( "remove", booking, bookingTmplItems );
-		return false; 
+		return false;
 	}
 
 	function removeBookings() {
